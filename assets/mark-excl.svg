@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 392" aria-hidden="true" focusable="false">
+  <!-- sanft gebogener Balken (oben frei) + Punkt exakt darunter -->
+  <path d="M47 25 C 39 115 39 210 47 300" fill="none" stroke="#ffffff" stroke-width="31" stroke-linecap="round"/>
+  <circle cx="47" cy="358" r="18" fill="#ffffff"/>
+</svg>

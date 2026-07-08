@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+# KI-/GEO-Crawler ausdrücklich erlaubt (für Antworten in KI-Suchmaschinen)
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+
+Sitemap: https://annette-hamburg.de/sitemap.xml

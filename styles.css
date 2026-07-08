@@ -1,0 +1,998 @@
+/* ============================================================
+   ANNETTE § HAMBURG — rechtssicher kommunizieren
+   Statischer One-Pager, umgesetzt nach Website_Anette_final.pdf
+   Farbschema: hell-dominant (Weiß/Beige) mit einer Petrol-Sektion
+   (Kompaktseminar) und Petrol-Akzentboxen.
+   Mobile-first; Desktop-Referenz = PDF-Layout (1300 px breit)
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. Fonts (lokal gehostet — siehe Datenschutzerklärung:
+      "Google Fonts (lokales Hosting)", keine Google-Server)
+   ------------------------------------------------------------ */
+@font-face {
+  font-family: 'Roboto Condensed';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url('assets/fonts/roboto-condensed-700-italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('assets/fonts/roboto-condensed-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('assets/fonts/roboto-condensed-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('assets/fonts/poppins-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('assets/fonts/poppins-500.woff2') format('woff2');
+}
+/* ------------------------------------------------------------
+   2. Design-Tokens (aus der PDF gemessen)
+   ------------------------------------------------------------ */
+:root {
+  /* Farben */
+  --petrol-dark:  #173E48; /* Petrol-Sektion, Akzentboxen, Headlines */
+  --petrol:       #205860; /* Akzent: Icon-Badges, Buttons, Trennstriche */
+  --beige:        #EAE7DB; /* warmer Sektions-Hintergrund */
+  --beige-card:   #E4E0D2; /* Karten auf Petrol (etwas kräftigeres Beige) */
+  --cream:        #E9E6C4; /* Sprechblasen-Highlight (cremig-gelb) */
+  --white:        #FFFFFF;
+  --text-dark:    #173E48; /* Überschriften auf hellem Grund (Petrol) */
+  --text-body:    #574B3B; /* Fließtext auf hellem Grund (warm-braun) */
+  --text-light:   #FFFFFF; /* Text auf Petrol */
+  --cream-soft:   #E9E6C4; /* helle Beschriftung auf Petrol */
+
+  /* Schriften */
+  --font-head: "Roboto Condensed", "Arial Narrow", sans-serif;
+  --font-body: "Poppins", -apple-system, "Segoe UI", sans-serif;
+
+  /* Abstände / Maße */
+  --wrap-max: 1300px;
+  --pad-x: 20px;
+  --sec-y: 56px;
+  --gap: 24px;
+  --radius: 14px;
+}
+@media (min-width: 768px) {
+  :root { --pad-x: 40px; --sec-y: 84px; --gap: 32px; }
+}
+
+/* ------------------------------------------------------------
+   3. Reset / Basis
+   ------------------------------------------------------------ */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text-body);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+h1, h2, h3, h4 {
+  font-family: var(--font-head);
+  line-height: 1.2;
+  margin: 0 0 .5em;
+  color: var(--text-dark);
+  overflow-wrap: break-word; /* lange Komposita (z. B. Impressum-Titel) umbrechen */
+}
+p, ul { margin: 0 0 1em; }
+ul { padding-left: 1.2em; }
+
+.wrap {
+  max-width: var(--wrap-max);
+  margin: 0 auto;
+  padding-left: var(--pad-x);
+  padding-right: var(--pad-x);
+}
+
+/* wiederkehrende Elemente ------------------------------------ */
+.sec { padding: var(--sec-y) 0; }
+/* Anker-Sprünge (Nav): Sektion bündig unter der 60px-Kopfleiste starten,
+   damit KEIN Rand der vorherigen Sektion oben durchscheint. Die Luft zur
+   Überschrift liefert das Innenabstand (padding) der Sektion selbst. */
+.sec[id] { scroll-margin-top: 60px; }
+
+.sec-title {
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--petrol-dark);
+}
+.sec-title--light { color: var(--text-light); }
+
+/* „verständlich · verbindlich · rechtssicher" usw. */
+.tagline {
+  font-family: var(--font-body);
+  font-size: .95rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  color: var(--petrol);
+}
+.tagline--light { color: var(--cream-soft); }
+.tagline--strong { font-weight: 700; font-size: 1.05rem; color: var(--petrol); }
+
+.subhead {
+  font-family: var(--font-head);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--petrol-dark);
+  margin: 1.8em 0 .6em;
+}
+.subhead--light { color: var(--text-light); }
+
+/* ------------------------------------------------------------
+   4. Header / Navigation  (beige Pill-Leiste mit Trennstrichen)
+   ------------------------------------------------------------ */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--beige);
+  box-shadow: 0 2px 12px rgba(23, 62, 72, .12);
+}
+.site-header__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap);
+  min-height: 60px;
+}
+
+/* Marken-Schriftzug (nur Mobil sichtbar) */
+.site-header__brand {
+  display: none;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: .09em;
+  color: var(--petrol);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav { display: flex; align-items: center; flex: 1; }
+.nav__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  width: 100%;
+}
+.nav__item { flex: 1 1 0; display: flex; }
+.nav__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  padding: 14px 12px;
+  border-left: 1px solid rgba(32, 88, 96, .45); /* Trennstrich */
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: .92rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--petrol);
+  transition: color .2s, background .2s;
+}
+.nav__link:hover,
+.nav__link:focus-visible { color: var(--petrol-dark); background: rgba(32, 88, 96, .08); }
+
+/* Hamburger (nur mobil) */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 2px solid var(--petrol);
+  border-radius: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+.nav-toggle__bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--petrol);
+  margin: 5px 0;
+  transition: transform .25s, opacity .25s;
+}
+
+@media (max-width: 899px) {
+  .site-header__brand { display: block; } /* Marke links, Hamburger rechts */
+  .nav-toggle { display: block; }
+  .nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--beige);
+    display: none;
+    padding: 6px var(--pad-x) 16px;
+    box-shadow: 0 12px 20px rgba(23, 62, 72, .18);
+  }
+  .nav.is-open { display: block; }
+  .nav__list { flex-direction: column; }
+  .nav__item { flex: none; }
+  .nav__link { border-left: 0; border-top: 1px solid rgba(32, 88, 96, .25); padding: 14px; }
+  .nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+}
+/* ------------------------------------------------------------
+   5. Hero  (Team-Foto + weiße Intro-Sektion)
+   ------------------------------------------------------------ */
+.hero { background: var(--white); color: var(--text-body); }
+.hero__media { position: relative; }
+.hero__media > picture { display: block; }
+.hero__media > picture img { width: 100%; height: auto; display: block; }
+
+/* Logo-Karte bündig oben links, direkt an der Nav anstoßend — wirkt wie
+   herunterhängend (top:0/left:0). Deutlich größer als Akzent. */
+.hero-logo {
+  position: absolute;
+  top: 0;                              /* oben bündig an der Nav (hängt herunter) */
+  left: clamp(16px, 4vw, 70px);        /* etwas eingerückt, nicht ganz links */
+  display: block;
+  width: clamp(165px, 38vw, 520px);
+  line-height: 0;
+  filter: drop-shadow(6px 10px 22px rgba(0, 0, 0, .30));
+}
+.hero-logo img { width: 100%; height: auto; }
+
+.hero__intro { text-align: center; padding: 48px 0 8px; }
+.hero__title {
+  font-size: clamp(2.1rem, 6vw, 3.6rem);
+  font-weight: 700;
+  letter-spacing: .05em;
+  color: var(--petrol-dark);
+  margin-bottom: .25em;
+}
+.hero__tagline {
+  font-size: clamp(.95rem, 2vw, 1.15rem);
+  letter-spacing: .18em;
+  color: var(--petrol);
+  margin-bottom: 2em;
+}
+.hero__lead {
+  max-width: 760px;
+  margin: 0 auto 2em;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: var(--text-body);
+}
+.hero__lead strong { color: var(--petrol-dark); font-weight: 600; }
+.hero__sub {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: clamp(1.05rem, 2.4vw, 1.45rem);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--petrol-dark);
+  margin-bottom: .4em;
+}
+.hero__sub2 { font-size: clamp(.9rem, 2vw, 1.05rem); margin-bottom: 0; }
+
+/* Icon-Badges */
+.badges {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+  padding: 40px 0 56px;
+  text-align: center;
+}
+@media (min-width: 768px) { .badges { grid-template-columns: repeat(3, 1fr); } }
+.badge__icon {
+  width: 84px;
+  height: 84px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  background: var(--petrol);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(23, 62, 72, .2);
+}
+.badge__icon svg { width: 42px; height: 42px; stroke: var(--white); fill: none; stroke-width: 1.6; }
+.badge__title {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: .04em;
+  color: var(--petrol-dark);
+  margin-bottom: .25em;
+}
+.badge__text { font-size: .9rem; color: var(--text-body); margin: 0; }
+
+/* Kurz-&-übersichtlich-Leiste (gerahmtes Info-Band) */
+.quickfacts {
+  background: var(--beige);
+  border-top: 3px solid var(--petrol);
+  border-bottom: 3px solid var(--petrol);
+}
+.quickfacts__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 26px 0;
+  text-align: center;
+}
+.quickfacts__label {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--petrol-dark);
+}
+.quickfacts__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: .95rem;
+  color: var(--text-body);
+}
+.quickfacts__list li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.quickfacts__list li::before {
+  content: "";
+  flex: none;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--petrol);
+}
+@media (min-width: 768px) {
+  .quickfacts__inner { flex-direction: row; justify-content: center; gap: 0; }
+  .quickfacts__label { padding-right: 32px; }
+  .quickfacts__list { flex-direction: row; gap: 0; }
+  /* Trennstriche zwischen den Punkten */
+  .quickfacts__list li { padding: 0 28px; border-left: 1px solid rgba(32, 88, 96, .35); }
+  .quickfacts__list li:first-child { border-left: 0; }
+}
+
+/* ------------------------------------------------------------
+   6. Über mich  (beige, warm-brauner Text)
+   ------------------------------------------------------------ */
+.about { background: var(--beige); }
+.about__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+  align-items: start;
+  margin-top: 28px;
+}
+@media (min-width: 900px) {
+  .about__grid { grid-template-columns: 1.1fr .9fr; gap: 56px; }
+  /* Bild bleibt beim Scrollen sichtbar (füllt den Raum rechts) */
+  .about__media { position: sticky; top: 92px; align-self: start; }
+}
+.about__intro { font-size: 1.05rem; margin-top: .4em; color: var(--text-body); }
+.about__caption {
+  margin: 14px 2px 0;
+  font-family: var(--font-head);
+  font-style: italic;
+  font-size: .95rem;
+  color: var(--petrol);
+  text-align: center;
+}
+
+/* Bild-Rahmen mit sanftem Zoom beim Hovern (wiederverwendbar) */
+.media-zoom {
+  overflow: hidden;
+  border-radius: var(--radius);
+  box-shadow: 0 12px 30px rgba(23, 62, 72, .22);
+}
+.media-zoom img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform .6s cubic-bezier(.2, .7, .2, 1);
+}
+.media-zoom:hover img { transform: scale(1.06); }
+
+/* ------------------------------------------------------------
+   7. Das Kompaktseminar  (Petrol-Sektion mit Karten)
+   ------------------------------------------------------------ */
+.seminar { background: var(--petrol-dark); color: var(--text-light); position: relative; overflow: hidden; }
+.seminar .subhead { color: var(--text-light); }
+/* Fließtext direkt auf Petrol erbt Weiß von .seminar; Karten & Sprechblasen
+   setzen ihre eigene (dunkle) Farbe. Kein blankes „.seminar p" — das würde
+   die Sprechblasen-Textfarbe überschreiben. */
+.seminar__intro, .seminar__conclusion,
+.seminar__forwhom p { color: var(--text-light); }
+.seminar__intro { max-width: 900px; }
+
+/* Sprechblasen (creme/weiß, wechselnd) */
+.bubbles {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px 18px;
+  margin: 24px 0 28px; /* Platz für die Sprechblasen-Zipfel + Abstand zum Folgetext */
+}
+@media (min-width: 600px) { .bubbles { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .bubbles { grid-template-columns: repeat(4, 1fr); } }
+.bubble {
+  position: relative;
+  background: var(--cream);
+  color: var(--petrol-dark);
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-style: italic;
+  font-size: 1.05rem;
+  text-align: center;
+  padding: 22px 18px;
+  border-radius: 18px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -12px;
+  left: 32px;
+  border: 12px solid transparent;
+  border-top-color: var(--cream);
+  border-bottom: 0;
+  border-right: 0;
+}
+.bubble:nth-child(even) { background: var(--white); }
+.bubble:nth-child(even)::after { border-top-color: var(--white); left: auto; right: 32px; }
+
+.seminar__conclusion { max-width: 900px; }
+
+/* Risiko-Box (beige) auf der Petrol-Sektion */
+.riskbox {
+  background: var(--beige);
+  color: var(--text-dark);
+  border-radius: var(--radius);
+  padding: 28px clamp(16px, 3vw, 36px);
+  margin: 8px 0 var(--gap);
+}
+.riskbox__title {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: clamp(1rem, 2.4vw, 1.15rem);
+  color: var(--petrol-dark);
+  margin: 0 0 22px;
+}
+.riskbox__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px 0;
+}
+@media (min-width: 720px) { .riskbox__items { grid-template-columns: repeat(5, 1fr); } }
+.riskbox__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  padding: 2px 12px;
+}
+@media (min-width: 720px) {
+  .riskbox__item + .riskbox__item { border-left: 1px solid rgba(23, 62, 72, .16); }
+}
+.riskbox__icon { color: var(--petrol-dark); line-height: 0; }
+.riskbox__icon svg { width: 46px; height: 46px; display: block; }
+.riskbox__label {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: .96rem;
+  color: var(--text-dark);
+  line-height: 1.2;
+}
+.riskbox__foot {
+  margin: 24px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid rgba(23, 62, 72, .16);
+  text-align: center;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: clamp(.95rem, 2.2vw, 1.05rem);
+  color: var(--petrol-dark);
+}
+
+/* helle Karten im Seminar-Bereich */
+.card {
+  border-radius: var(--radius);
+  padding: 28px;
+}
+.card--white { background: var(--white); color: var(--text-body); }
+.card--beige { background: var(--beige-card); color: var(--text-body); }
+.card h3, .card h4 { color: var(--petrol-dark); }
+.card p { color: var(--text-body); }
+.card .subhead { color: var(--petrol-dark); margin-top: 0; }
+
+.seminar__praxis { margin: 8px 0 var(--gap); }
+.seminar__praxis .card--white p:last-child,
+.seminar__praxis .card--white ul:last-child { margin-bottom: 0; }
+
+/* Zwei-Spalten-Karten (Worum / Ansatz) mit „!"-Akzent */
+.seminar__cards {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+  margin: var(--gap) 0;
+}
+@media (min-width: 900px) { .seminar__cards { grid-template-columns: 1fr 1fr; } }
+
+/* „!"-Akzentgrafik (weißes „!" auf schwarzem Grund, weich auslaufend).
+   mix-blend-mode: screen lässt das Schwarz auf dem Petrol-Grund
+   verschwinden, sodass nur das weiße „!" bleibt. Die Karten bleiben
+   zentriert; die Grafik sitzt weit rechts und läuft an der Kante aus
+   (der Überhang wird von .seminar { overflow:hidden } geclippt). */
+.mark-excl {
+  display: none;
+  pointer-events: none;
+}
+@media (min-width: 1024px) {
+  .mark-excl {
+    display: block;
+    position: absolute;
+    right: -70px;      /* sichtbares „!" sitzt an der rechten Kartenkante */
+    top: 50%;
+    transform: translateY(-50%);
+    height: 620px;
+    width: auto;
+    z-index: 1;
+  }
+}
+
+/* Die drei Schwerpunkte */
+.focus { list-style: none; padding: 0; margin: 0; }
+.focus li { margin-bottom: 14px; }
+.focus strong { font-family: var(--font-head); font-size: 1.02rem; letter-spacing: .02em; color: var(--petrol-dark); }
+
+/* Kurz & übersichtlich — als kleine Tabelle mit Zeilen-Trennlinien */
+.keyfacts {
+  list-style: none;
+  padding: 0;
+  margin: .6em 0 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 18px;
+}
+.keyfacts dt,
+.keyfacts dd {
+  margin: 0;
+  padding: 11px 0;
+  border-top: 1px solid rgba(23, 62, 72, .16);
+}
+.keyfacts dt:first-of-type,
+.keyfacts dd:first-of-type { border-top: 0; padding-top: 2px; }
+.keyfacts dt {
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--petrol-dark);
+  white-space: nowrap;
+}
+.keyfacts .kf-val { color: var(--text-body); }
+
+/* „Für wen" (auf Petrol, unter den Karten) */
+.seminar__forwhom { max-width: 940px; }
+
+/* ------------------------------------------------------------
+   8. Honorar & Ablauf  (beige)
+   ------------------------------------------------------------ */
+.pricing { background: var(--beige); }
+.pricing p, .pricing li { color: var(--text-body); }
+.pricing__intro { max-width: 860px; }
+/* Preis in hervorgehobener Box (klar sichtbar) */
+.pricing__price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 16px;
+  background: var(--white);
+  border-left: 6px solid var(--petrol);
+  border-radius: var(--radius);
+  box-shadow: 0 6px 18px rgba(23, 62, 72, .08);
+  padding: 20px 26px;
+  margin: 10px 0 30px;
+}
+.pricing__price-label {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--petrol);
+  width: 100%;
+}
+.pricing__price-value {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 4vw, 2.5rem);
+  color: var(--petrol-dark);
+  line-height: 1;
+}
+.pricing__price-note { font-size: .95rem; color: var(--text-body); }
+.pricing__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+  align-items: start;
+}
+@media (min-width: 900px) { .pricing__grid { grid-template-columns: 1.3fr .7fr; gap: 48px; } }
+.pricing ul ul { margin-top: .4em; }
+
+/* Info-Boxen */
+.infoboxes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+  margin-top: var(--gap);
+}
+@media (min-width: 600px) { .infoboxes { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .infoboxes { grid-template-columns: repeat(4, 1fr); } }
+.infobox {
+  background: var(--white);
+  border-top: 5px solid var(--petrol);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.infobox h3 {
+  font-size: 1rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--petrol-dark);
+}
+.infobox ul { margin: 0; font-size: .92rem; }
+
+/* Wichtiger Hinweis — Petrol-Box mit „!"-Akzent rechts */
+.pricing__notice {
+  position: relative;
+  margin-top: calc(var(--gap) + 12px);
+}
+/* Box NICHT clippen, damit das „!" sauber über den Rand hinausragen kann */
+.pricing__notice { overflow: visible; }
+.notice {
+  position: relative;
+  background: var(--petrol-dark);
+  color: var(--text-light);
+  border-radius: var(--radius);
+  padding: 30px;
+}
+.notice h3 { color: var(--text-light); letter-spacing: .05em; text-transform: uppercase; margin-top: 0; }
+.notice p { color: var(--text-light); }
+.notice p:last-child { margin-bottom: 0; }
+.notice__body { max-width: 100%; }
+@media (min-width: 768px) { .notice__body { max-width: 84%; } }
+.notice__mark {
+  display: none;
+  pointer-events: none;
+}
+@media (min-width: 768px) {
+  /* „!" sitzt vollständig INNERHALB der Petrol-Box (weiß auf Petrol,
+     hoher Kontrast) und ist auf die Boxhöhe eingepasst. */
+  .notice__mark {
+    display: block;
+    position: absolute;
+    right: 26px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 82%;
+    width: auto;
+    z-index: 2;
+  }
+}
+
+/* ------------------------------------------------------------
+   9. Kontakt  (weiß, Felder beige)
+   ------------------------------------------------------------ */
+.contact { background: var(--white); color: var(--text-body); }
+.contact p { color: var(--text-body); }
+.contact__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+  margin-top: 20px;
+}
+@media (min-width: 900px) { .contact__grid { grid-template-columns: .9fr 1.1fr; gap: 56px; } }
+.contact a { color: var(--petrol); font-weight: 500; }
+
+/* Direkt-Kontaktblock (füllt die linke Spalte, klarer Call-to-Action) */
+.contact__details {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
+.contact__details li { display: flex; align-items: center; gap: 16px; }
+.contact__ico {
+  flex: none;
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  background: var(--beige);
+  color: var(--petrol);
+  display: flex; align-items: center; justify-content: center;
+}
+.contact__ico svg { width: 22px; height: 22px; }
+.contact__lbl {
+  display: block;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: .8rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--petrol-dark);
+}
+.contact__details a { font-size: 1.05rem; }
+
+/* Honeypot – für Menschen unsichtbar, für Bots ein Köder (kein display:none!) */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form__field { margin-bottom: 18px; }
+.form__label {
+  display: block;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: .9rem;
+  letter-spacing: .06em;
+  color: var(--petrol-dark);
+  margin-bottom: 6px;
+}
+.form__input {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text-dark);
+  background: var(--beige);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.form__input::placeholder { color: #9a9382; }
+.form__input:focus { outline: none; border-color: var(--petrol); }
+textarea.form__input { min-height: 150px; resize: vertical; }
+.form__error {
+  display: none;
+  color: #b0483a;
+  font-size: .85rem;
+  margin-top: 4px;
+}
+.form__field.has-error .form__error { display: block; }
+.form__field.has-error .form__input { border-color: #b0483a; }
+
+.form__submit {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--petrol);
+  border: none;
+  border-radius: 8px;
+  padding: 14px 28px;
+  cursor: pointer;
+  transition: background .2s;
+}
+.form__submit:hover, .form__submit:focus-visible { background: var(--petrol-dark); }
+.form__status { margin-top: 14px; font-size: .95rem; font-weight: 500; display: none; color: var(--petrol-dark); }
+.form__status.is-visible { display: block; }
+.form__status.is-ok { color: #2e6b4f; }
+.form__status.is-error { color: #b0483a; }
+.form__note { font-size: .78rem; color: var(--text-body); margin-top: 18px; }
+.form__note a { color: var(--petrol); }
+
+/* ------------------------------------------------------------
+   10. Impressum & Datenschutz
+   ------------------------------------------------------------ */
+.legal { background: var(--beige); }
+.legal p, .legal li { color: var(--text-body); }
+.legal h3 {
+  font-size: 1.05rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--petrol-dark);
+  margin-top: 1.6em;
+}
+.legal h4 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: .98rem;
+  color: var(--petrol-dark);
+  margin: 1.4em 0 .4em;
+}
+.legal a { color: var(--petrol); word-break: break-word; }
+
+/* Datenschutz — eigene Sektion mit WEISSEM Hintergrund (klar getrennt vom
+   beigen Impressum). Accordion-Karten in Beige, damit sie auf Weiß abheben. */
+.privacy { background: var(--white); }
+.privacy p, .privacy li { color: var(--text-body); }
+.privacy__intro { max-width: 860px; margin-bottom: 28px; color: var(--text-body); }
+.privacy__acc { display: grid; gap: 14px; }
+.acc {
+  background: var(--beige);
+  border: 1px solid rgba(23, 62, 72, .10);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 14px rgba(23, 62, 72, .06);
+  overflow: hidden;
+}
+.acc > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 24px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--petrol-dark);
+}
+.acc > summary::-webkit-details-marker { display: none; }
+.acc__num {
+  flex: none;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--petrol);
+  color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .95rem;
+}
+.acc__chev { margin-left: auto; transition: transform .25s; color: var(--petrol); flex: none; }
+.acc[open] .acc__chev { transform: rotate(180deg); }
+.acc__body { padding: 0 24px 8px; }
+.acc__body h4:first-child { margin-top: .2em; }
+@media (min-width: 1024px) {
+  /* längste Abschnitte über zwei Spalten, damit es kompakter wird */
+  .acc__body.acc__body--cols { columns: 2; column-gap: 44px; }
+  .acc__body--cols h4 { break-after: avoid; }
+  .acc__body--cols p, .acc__body--cols ul { break-inside: avoid; }
+}
+
+/* ------------------------------------------------------------
+   11. Footer
+   ------------------------------------------------------------ */
+.site-footer {
+  background: var(--petrol-dark);
+  color: var(--text-light);
+  text-align: center;
+  padding: 40px 0;
+}
+.footer-logo {
+  display: inline-block;
+  text-decoration: none;
+}
+.footer-logo img {
+  width: clamp(230px, 40vw, 300px);
+  height: auto;
+}
+
+/* ------------------------------------------------------------
+   12. Animationen  (dezent; respektiert prefers-reduced-motion)
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  /* Scroll-Reveal: Elemente blenden beim Erscheinen sanft ein */
+  html.js .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity .7s ease, transform .7s cubic-bezier(.2, .7, .2, 1);
+  }
+  html.js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Hover-Feedback: Karten/Badges/Buttons reagieren leicht */
+  .infobox, .acc, .badge__icon, .form__submit, .contact__ico, .hero-logo {
+    transition: transform .28s ease, box-shadow .28s ease;
+  }
+  .infobox:hover { transform: translateY(-5px); box-shadow: 0 16px 32px rgba(23, 62, 72, .16); }
+  .badge:hover .badge__icon { transform: translateY(-6px) scale(1.06); box-shadow: 0 14px 26px rgba(23, 62, 72, .3); }
+  .contact__details li:hover .contact__ico { transform: scale(1.08); }
+  .acc:hover { box-shadow: 0 12px 26px rgba(23, 62, 72, .14); }
+  .form__submit:hover { transform: translateY(-2px); }
+  .hero-logo:hover { transform: translateY(2px); }
+
+  /* Nav-Link: dezenter Unterstrich-Effekt */
+  .nav__link { position: relative; }
+  .nav__link::after {
+    content: "";
+    position: absolute;
+    left: 50%; right: 50%;
+    bottom: 6px;
+    height: 2px;
+    background: var(--petrol);
+    transition: left .25s ease, right .25s ease;
+  }
+  .nav__link:hover::after { left: 18px; right: 18px; }
+}
+
+/* Header wirft beim Scrollen einen etwas kräftigeren Schatten */
+.site-header { transition: box-shadow .3s ease; }
+.site-header.is-scrolled { box-shadow: 0 6px 20px rgba(23, 62, 72, .2); }
+
+/* Aktiver Nav-Punkt (Scroll-Spy) */
+.nav__link.is-active { color: var(--petrol-dark); background: rgba(32, 88, 96, .10); }
+
+/* Lese-Fortschrittsbalken ganz oben */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  z-index: 100;
+  background: transparent;
+  pointer-events: none;
+}
+.scroll-progress span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--petrol);
+}
+
+/* Zurück-nach-oben-Button */
+.to-top {
+  position: fixed;
+  right: clamp(16px, 3vw, 28px);
+  bottom: clamp(16px, 3vw, 28px);
+  width: 48px; height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: var(--petrol);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity .3s ease, transform .3s ease, visibility .3s, background .2s;
+  z-index: 90;
+  box-shadow: 0 6px 18px rgba(23, 62, 72, .32);
+}
+.to-top.is-visible { opacity: 1; visibility: visible; transform: none; }
+.to-top:hover { background: var(--petrol-dark); }
+.to-top svg { width: 22px; height: 22px; }
