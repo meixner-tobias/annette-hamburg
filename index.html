@@ -61,11 +61,14 @@
 
   <!-- ?v=… = Cache-Busting: bei jeder Änderung an styles.css/script.js die Zahl
        erhöhen, dann laden Browser die Datei garantiert neu -->
-  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="stylesheet" href="styles.css?v=3">
   <!-- markiert JS-Verfügbarkeit früh, damit Scroll-Reveal ohne Flackern startet -->
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body id="top">
+
+  <!-- Barrierefreiheit: Sprung zum Inhalt für Tastatur-/Screenreader-Nutzer -->
+  <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
 
   <!-- Lese-Fortschrittsbalken (füllt sich beim Scrollen) -->
   <div class="scroll-progress" aria-hidden="true"><span id="progressBar"></span></div>
@@ -96,7 +99,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="inhalt" tabindex="-1">
 
     <!-- ============================================================
          1. Hero
@@ -183,8 +186,8 @@
             <p>Ob zwischen Eigentümern, Handwerkern oder Dienstleistern: Ich kenne die Schnittstellen, an denen Entscheidungen getroffen werden und weiß, wo im Arbeitsalltag typische Haftungsfallen entstehen.</p>
 
             <h3 class="subhead">Warum Sensibilisierung statt Belehrung?</h3>
-            <p>In meiner Praxis hat sich immer wieder gezeigt: Die meisten Probleme entstehen nicht aus fehlendem Fachwissen, sondern aus der alltäglichen Kommunikation - aus dem, was gesagt, gemeint oder nicht klar genug festgehalten wird.</p>
-            <p>Genau hier setzte ich an. Ich vermittle juristisches Denken praxisnah und verständlich. Mit dem Ziel, Risiken frühzeitig zu erkennen und Entscheidungen im Arbeitsalltag bewusster zu treffen, bevor Konflikte, Mehrkosten und Haftungsfragen entstehen.</p>
+            <p>In meiner Praxis hat sich immer wieder gezeigt: Die meisten Probleme entstehen nicht aus fehlendem Fachwissen, sondern aus der alltäglichen Kommunikation – aus dem, was gesagt, gemeint oder nicht klar genug festgehalten wird.</p>
+            <p>Genau hier setze ich an. Ich vermittle juristisches Denken praxisnah und verständlich. Mit dem Ziel, Risiken frühzeitig zu erkennen und Entscheidungen im Arbeitsalltag bewusster zu treffen, bevor Konflikte, Mehrkosten und Haftungsfragen entstehen.</p>
             <p>Aus dieser langjährigen Praxis heraus habe ich das Kompaktseminar entwickelt, das Sie auf den folgenden Seiten kennenlernen zur Sensibilisierung für Sprache, Verhalten und Risikobewusstsein im Arbeitsalltag.</p>
             <p>Ziel ist eine verlässliche Zusammenarbeit im Arbeitsalltag – durch klare Absprachen, verständliche Kommunikation und ein geschärftes Bewusstsein für Risiken und Verantwortung.</p>
           </div>
@@ -340,14 +343,14 @@
               <li>Vorgespräch zur Abstimmung des betrieblichen Rahmens.</li>
               <li>Maßgeschneiderte Inhalte:
                 <ul>
-                  <li>Besprechung von 3-4 praxisnahen Fällen aus Ihrem Betrieb</li>
+                  <li>Besprechung von 3–4 praxisnahen Fällen aus Ihrem Betrieb</li>
                   <li>Fester Grundlagenbaustein zur Wirkung von Sprache, Verhalten und Formulierung im Arbeitsalltag</li>
                   <li>Vermittlung praxiserprobter und kontinuierlich weiterentwickelter Grundsätze aus der betrieblichen Praxis</li>
                 </ul>
               </li>
-              <li>90-minütiges Komapaktseminar inkl. Fragerunde</li>
+              <li>90-minütiges Kompaktseminar inkl. Fragerunde</li>
               <li>Handout mit zentralen Erkenntnissen und Formulierungsbeispielen für den Arbeitsalltag</li>
-              <li>Teilnehmende: Basisgruppe bis zu 10 Personen, Erweiterung auf max. 12 Personen möglich (jede weitere Person: 100,-€ zzgl. USt)</li>
+              <li>Teilnehmende: Basisgruppe bis zu 10 Personen, Erweiterung auf max. 12 Personen möglich (jede weitere Person: 100,- € zzgl. USt)</li>
             </ul>
           </div>
 
@@ -357,7 +360,7 @@
             <p>Zur nachhaltigen Sicherung der Inhalte biete ich optional an:</p>
             <p><strong>Auffrischung</strong><br>
                Wiederholung zur Festigung oder für neue Mitarbeitende<br>
-               (z.B. nach 6-12 Monaten).</p>
+               (z. B. nach 6–12 Monaten).</p>
             <p><strong>Vertiefung</strong><br>
                Folgetermin mit neuen oder vertiefenden Schwerpunkten<br>
                aus Ihrem Betriebsalltag.</p>
@@ -368,7 +371,7 @@
           <div class="infobox">
             <h3>Ort &amp; Durchführung</h3>
             <ul>
-              <li>im Betreib vor Ort</li>
+              <li>im Betrieb vor Ort</li>
               <li>oder in externen Räumlichkeiten</li>
             </ul>
           </div>
@@ -383,7 +386,7 @@
             <h3>Fahrtkosten</h3>
             <ul>
               <li>bis 30 km um Kirchheim unter Teck inklusive</li>
-              <li>ab 31 km: 0,50 € pro gefahrene Kilometer</li>
+              <li>ab 31 km: 0,50 € pro gefahrenen Kilometer</li>
             </ul>
           </div>
           <div class="infobox">
@@ -811,6 +814,6 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
   </button>
 
-  <script src="script.js?v=2"></script>
+  <script src="script.js?v=3"></script>
 </body>
 </html>

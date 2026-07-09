@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seite nicht gefunden – ANNETTE § HAMBURG</title>
+  <meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#173E48">
+  <meta name="color-scheme" content="light">
+
+  <!-- Favicons -->
+  <link rel="icon" href="/assets/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+
+  <!-- Haupt-Stylesheet: liefert Schriften (@font-face) + Design-Tokens (:root).
+       url()-Pfade sind relativ zur CSS-Datei (Root) und funktionieren daher
+       auch, wenn diese 404-Seite für eine tiefe URL ausgeliefert wird. -->
+  <link rel="stylesheet" href="/styles.css?v=3">
+
+  <style>
+    .nf {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 22px;
+      background: var(--petrol-dark, #173E48);
+      color: #fff;
+    }
+    .nf__logo {
+      width: 168px;
+      max-width: 60%;
+      height: auto;
+      margin-bottom: 34px;
+    }
+    .nf__code {
+      font-family: var(--font-head, 'Roboto Condensed', sans-serif);
+      font-weight: 700;
+      font-size: clamp(56px, 16vw, 104px);
+      line-height: 1;
+      letter-spacing: .02em;
+      margin: 0 0 10px;
+      color: #fff;
+    }
+    .nf__title {
+      font-family: var(--font-head, 'Roboto Condensed', sans-serif);
+      font-weight: 700;
+      font-size: clamp(22px, 5.5vw, 30px);
+      margin: 0 0 14px;
+      color: #fff;
+    }
+    .nf__text {
+      font-family: var(--font-body, 'Poppins', sans-serif);
+      font-size: 16px;
+      line-height: 1.65;
+      max-width: 460px;
+      margin: 0 auto 30px;
+      color: rgba(255, 255, 255, .82);
+    }
+    .nf__btn {
+      display: inline-block;
+      font-family: var(--font-head, 'Roboto Condensed', sans-serif);
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-decoration: none;
+      color: var(--petrol-dark, #173E48);
+      background: #fff;
+      padding: 14px 30px;
+      border-radius: 999px;
+      transition: transform .18s ease, box-shadow .18s ease;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, .22);
+    }
+    .nf__btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(0, 0, 0, .28); }
+    .nf__btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+  </style>
+</head>
+<body>
+  <main class="nf">
+    <img class="nf__logo" src="/assets/Logo_Header_420x230_transp.png"
+         alt="ANNETTE § HAMBURG" width="420" height="230">
+    <p class="nf__code">404</p>
+    <h1 class="nf__title">Diese Seite gibt es leider nicht</h1>
+    <p class="nf__text">
+      Die aufgerufene Adresse ist nicht (mehr) vorhanden – vielleicht ein Tippfehler
+      oder ein veralteter Link. Kehren Sie einfach zur Startseite zurück.
+    </p>
+    <a class="nf__btn" href="/">Zur Startseite</a>
+  </main>
+</body>
+</html>

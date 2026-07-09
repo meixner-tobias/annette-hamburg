@@ -1002,3 +1002,38 @@ textarea.form__input { min-height: 150px; resize: vertical; }
 .to-top.is-visible { opacity: 1; visibility: visible; transform: none; }
 .to-top:hover { background: var(--petrol-dark); }
 .to-top svg { width: 22px; height: 22px; }
+
+/* ------------------------------------------------------------
+   13. Barrierefreiheit – Skip-Link & sichtbarer Tastatur-Fokus
+   ------------------------------------------------------------ */
+.skip-link {
+  position: absolute;
+  left: 8px;
+  top: -60px;                 /* außerhalb des Sichtbereichs … */
+  z-index: 200;
+  background: var(--petrol-dark);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-decoration: none;
+  transition: top .2s ease;
+}
+.skip-link:focus { top: 8px; }  /* … erscheint beim Fokussieren (Tab) */
+
+/* deutlicher Fokusrahmen für Tastaturnutzer auf allen interaktiven Elementen */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--petrol);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+.acc > summary:focus-visible { outline-offset: -3px; }
+/* <main> bekommt per Skip-Link programmatisch Fokus – kein Rahmen nötig */
+#inhalt:focus,
+#inhalt:focus-visible { outline: none; }
