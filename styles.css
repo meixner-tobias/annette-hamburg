@@ -124,6 +124,12 @@ ul { padding-left: 1.2em; }
   color: var(--petrol-dark);
 }
 .sec-title--light { color: var(--text-light); }
+/* „DATENSCHUTZERKLÄRUNG" ist die mit Abstand längste Überschrift und bräche auf
+   schmalen Displays um (braucht 355 px, hat bei 390 px Gerätebreite nur 350 px).
+   Nur sie skaliert dort etwas kleiner mit; ab ca. 424 px greift wieder 1.8rem. */
+@media (max-width: 430px) {
+  #datenschutz .sec-title { font-size: clamp(1.2rem, 6.8vw, 1.8rem); }
+}
 
 /* „verständlich · verbindlich · rechtssicher" usw. */
 .tagline {
