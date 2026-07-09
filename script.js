@@ -43,7 +43,7 @@
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var revealSelector = [
-    '.hero__title', '.hero__tagline', '.hero__lead', '.hero__sub', '.hero__sub2',
+    '.hero__title', '.hero__tagline', '.hero__sub', '.hero__sub2',
     '.badge', '.sec-title', '.about__text', '.about__media',
     '.bubble', '.riskbox', '.card', '.infobox', '.pricing__price', '.notice',
     '.contact__text', '.form', '.acc', '.seminar__forwhom', '.quickfacts__inner'
@@ -225,7 +225,7 @@
           var ok = data && (data.success === true || data.ok === true);
           if (ok) {
             form.reset();
-            showStatus('Vielen Dank! Ihre Nachricht wurde gesendet – ich melde mich in der Regel innerhalb von 24 Stunden.', true);
+            showStatus('Vielen Dank! Ihre Nachricht wurde gesendet – in der Regel erhalten Sie innerhalb von zwei Werktagen eine Rückmeldung.', true);
           } else {
             showStatus((data && data.message) || 'Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.', false);
           }
