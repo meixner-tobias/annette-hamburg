@@ -290,6 +290,17 @@ ul { padding-left: 1.2em; }
   color: var(--petrol-dark);
   margin-bottom: .4em;
 }
+/* Zwischenzeile: die Konsequenz. Fett wie die Headline, aber in der warmen
+   Textfarbe wie der Fließtext darunter. */
+.hero__lead {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: clamp(.98rem, 2.1vw, 1.2rem);
+  color: var(--text-body);
+  max-width: 820px;
+  padding: 0 10px;          /* gleicher Randabstand wie Tagline & Fließtext */
+  margin: 0 auto .5em;
+}
 .hero__sub2 { font-size: clamp(.9rem, 2vw, 1.05rem); margin-bottom: 0; }
 
 /* Icon-Badges */
@@ -614,36 +625,13 @@ ul { padding-left: 1.2em; }
 .pricing { background: var(--beige); }
 .pricing p, .pricing li { color: var(--text-body); }
 .pricing__intro { max-width: 860px; }
-/* Preis in hervorgehobener Box (klar sichtbar) */
-.pricing__price {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 6px 16px;
-  background: var(--white);
-  border-left: 6px solid var(--petrol);
-  border-radius: var(--radius);
-  box-shadow: 0 6px 18px rgba(23, 62, 72, .08);
-  padding: 20px 26px;
+/* Preis bewusst zurückhaltend: normale Schriftgröße, keine Box – die ganze
+   Zeile in Petrol und fett. Doppelte Klasse, um .pricing p (Textfarbe) zu schlagen. */
+.pricing .pricing__price {
   margin: 10px 0 30px;
-}
-.pricing__price-label {
-  font-family: var(--font-head);
   font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: var(--petrol);
-  width: 100%;
-}
-.pricing__price-value {
-  font-family: var(--font-head);
-  font-weight: 700;
-  font-size: clamp(1.9rem, 4vw, 2.5rem);
   color: var(--petrol-dark);
-  line-height: 1;
 }
-.pricing__price-note { font-size: .95rem; color: var(--text-body); }
 .pricing__grid {
   display: grid;
   grid-template-columns: 1fr;

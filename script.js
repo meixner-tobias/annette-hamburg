@@ -43,7 +43,7 @@
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var revealSelector = [
-    '.hero__title', '.hero__tagline', '.hero__sub', '.hero__sub2',
+    '.hero__title', '.hero__tagline', '.hero__sub', '.hero__lead', '.hero__sub2',
     '.badge', '.sec-title', '.about__text', '.about__media',
     '.bubble', '.riskbox', '.card', '.infobox', '.pricing__price', '.notice',
     '.contact__text', '.form', '.acc', '.seminar__forwhom', '.quickfacts__inner'
