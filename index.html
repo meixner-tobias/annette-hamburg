@@ -59,7 +59,9 @@
   <link rel="preload" as="image" imagesrcset="assets/header-team-768.webp 768w, assets/header-team-1300.webp 1300w, assets/header-team-1920.webp 1920w" imagesizes="100vw" fetchpriority="high">
   <link rel="preload" as="image" href="assets/Logo_Header_420x230.png">
 
-  <link rel="stylesheet" href="styles.css">
+  <!-- ?v=… = Cache-Busting: bei jeder Änderung an styles.css/script.js die Zahl
+       erhöhen, dann laden Browser die Datei garantiert neu -->
+  <link rel="stylesheet" href="styles.css?v=2">
   <!-- markiert JS-Verfügbarkeit früh, damit Scroll-Reveal ohne Flackern startet -->
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -809,6 +811,6 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
   </button>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=2"></script>
 </body>
 </html>
